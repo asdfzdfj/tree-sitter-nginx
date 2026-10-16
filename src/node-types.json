@@ -169,6 +169,14 @@
           "named": true
         },
         {
+          "type": "lua_block",
+          "named": true
+        },
+        {
+          "type": "lua_code",
+          "named": true
+        },
+        {
           "type": "mask",
           "named": true
         },
@@ -186,6 +194,10 @@
         },
         {
           "type": "value",
+          "named": true
+        },
+        {
+          "type": "var",
           "named": true
         },
         {
@@ -261,6 +273,26 @@
   },
   {
     "type": "location_modifier",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "lua_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "lua_code",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "lua_code",
     "named": true,
     "fields": {}
   },
@@ -347,6 +379,14 @@
         }
       ]
     }
+  },
+  {
+    "type": "\"",
+    "named": false
+  },
+  {
+    "type": "'",
+    "named": false
   },
   {
     "type": "*",

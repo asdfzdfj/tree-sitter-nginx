@@ -37,6 +37,7 @@
   (quoted_string_literal)
   (file)
   (mask)
+  (lua_code)
 ] @string
 
 (directive (variable) @variable.parameter)

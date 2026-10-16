@@ -55,10 +55,10 @@ module.exports = grammar({
 		location_route: (_) => token(prec(-1, /[^{]+/)),
 		location_modifier: (_) =>
 			choice(
-				"=", // An exact match of the URI path.
-				"~", // A case-sensitive regular expression match.
-				"~*", //A case-insensitive regular expression match.
-				"^~", //Indicates that the following path should be considered the best non-regular expression match.
+				"=",  // An exact match of the URI path.
+				"~",  // A case-sensitive regular expression match.
+				"~*", // A case-insensitive regular expression match.
+				"^~", // Indicates that the following path should be considered the best non-regular expression match.
 			),
 
 		location: ($) =>
@@ -84,9 +84,65 @@ module.exports = grammar({
 				$._user_directive,
 				$._events_directive,
 				$._return_directive,
+				$._lua_string_directive,
+				$._lua_block_directive,
 			),
 
-		block: ($) => seq("{", optional($._newline), optional($._body), "}"),
+		_lua_block_directive: ($) =>
+			choice(
+				seq(
+					alias("set_by_lua_block", $.keyword),
+					$.var,
+					$.lua_block
+				),
+				seq(
+					alias(/[\w]+_by_lua_block/, $.keyword),
+					$.lua_block
+				),
+			),
+
+		// lua_block is basically a funny shaped string
+		lua_block: ($) =>
+			seq('{', alias(repeat1($._lua_code_block), $.lua_code), '}'),
+
+		_lua_code_block: ($) =>
+			seq(
+				/[^\{\}]+/,
+				optional(seq('{', repeat($._lua_code_block), '}')),
+			),
+
+		_lua_string_directive: ($) =>
+			seq(
+				choice(
+					seq(
+						alias("set_by_lua", $.keyword),
+						$.var,
+						$._lua_code_string,
+					),
+					seq(
+						alias(/[\w]+_by_lua/, $.keyword),
+						$._lua_code_string,
+					),
+				),
+				terminator,
+				$._newline,
+			),
+
+		_lua_code_string: ($) =>
+			choice(
+				seq(
+					"'",
+					alias(repeat(/[^']|(\\\')/), $.lua_code),
+					"'"
+				),
+				seq(
+					'"',
+					alias(repeat(/[^']|(\\\")/), $.lua_code),
+					'"'
+				),
+			),
+
+		block: ($) => seq("{", /*optional($._newline),*/ optional($._body), "}"),
 		on: (_) => "on",
 		off: (_) => "off",
 		boolean: ($) => choice($.on, $.off),
@@ -104,7 +160,7 @@ module.exports = grammar({
 				"crit",
 				"alert",
 				"emerg",
-			), //https://nginx.org/en/docs/ngx_core_module.html#error_log
+			), // https://nginx.org/en/docs/ngx_core_module.html#error_log
 		time: (_) => token(seq(repeat1(unicodeDigit), /(ms|s|m|h|d|w|M|y)/)), // https://nginx.org/en/docs/syntax.html
 		size: (_) => token(seq(repeat1(unicodeDigit), /[mkgMKG]/)),
 		_fileish: (_) => choice(unicodeDigit, unicodeLetter, "/", ".", "-", "_"),
@@ -261,7 +317,7 @@ module.exports = grammar({
 		_env_directive: ($) =>
 			seq(
 				alias("env", $.keyword),
-				alias(/[A-Z][A-Z0-9_]+/, $.variable),
+				alias(/[A-Za-z][A-Za-z0-9_]+/, $.variable),
 				optional(seq("=", alias(/[^;]+/, $.value))),
 				terminator,
 				$._newline,
