@@ -1,0 +1,79 @@
+==================
+regular block directive (*_by_lua_block)
+==================
+
+# this handler is active in _all_ server blocks by default
+header_filter_by_lua_block {
+  -- deduplicate and unset some vary header values from upstream response
+  local vary_in = ngx.var.upstream_http_vary
+  if vary_in then
+    local vary_dropped = { ['user-agent'] = true }
+
+    -- apparently nginx already combine duplicate headers for us
+    local vary_out = {}
+    local vary_set = {}
+
+    -- filter vary header
+    for header_name in vary_in:gmatch('[^,%s]+') do
+      local header_lower = header_name:lower()
+      if not (vary_set[header_lower] or vary_dropped[header_lower]) then
+        vary_out[#vary_out+1] = header_name
+        vary_set[header_lower] = true
+      end
+    end
+
+    -- returned combined vary field
+    ngx.header['Vary'] = table.concat(vary_out, ', ')
+  end
+
+  -- fill custom response header if it wasn't already set
+  if ngx.ctx.custom_headers then
+    for k, v in pairs(ngx.ctx.custom_headers) do
+      if ngx.header[k] == nil or ngx.header[k] == "" then
+        ngx.header[k] = v
+      end
+    end
+  end
+}
+
+---
+
+(source_file
+  (comment)
+  (directive
+    (keyword)
+    (lua_block
+        (lua_code) )))
+
+
+==================
+set_by_lua_block (it has args)
+==================
+
+set_by_lua_block $foo {
+  return '0'
+}
+
+---
+
+(source_file
+  (directive
+    (keyword)
+    (var)
+    (lua_block
+      (lua_code) )))
+
+
+==============================
+set_by_lua, lua code as string
+==============================
+
+set_by_lua $foo "return 0";
+
+---
+
+(source_file
+  (directive
+    (keyword)
+    (var)
+    (lua_code) ))
