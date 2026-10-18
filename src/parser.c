@@ -9,10 +9,10 @@
 #define LANGUAGE_VERSION 15
 #define STATE_COUNT 111
 #define LARGE_STATE_COUNT 2
-#define SYMBOL_COUNT 54
+#define SYMBOL_COUNT 51
 #define ALIAS_COUNT 3
-#define TOKEN_COUNT 26
-#define EXTERNAL_TOKEN_COUNT 3
+#define TOKEN_COUNT 23
+#define EXTERNAL_TOKEN_COUNT 0
 #define FIELD_COUNT 0
 #define MAX_ALIAS_SEQUENCE_LENGTH 4
 #define MAX_RESERVED_WORD_SET_SIZE 0
@@ -42,40 +42,37 @@ enum ts_symbol_identifiers {
   anon_sym_off = 20,
   sym_value_size = 21,
   sym_value_time = 22,
-  sym__newline = 23,
-  sym__indent = 24,
-  sym__dedent = 25,
-  sym_source_file = 26,
-  sym__directive = 27,
-  sym_directive_simple = 28,
-  sym_directive_block = 29,
-  sym__block_directive = 30,
-  sym__directive_args = 31,
-  sym_directive_arg = 32,
-  sym_directive_map = 33,
-  sym__block_map = 34,
-  sym_map_entry = 35,
-  sym_map_option = 36,
-  sym_directive_block_lua = 37,
-  sym__block_lua = 38,
-  sym__block_lua_content = 39,
-  sym_directive_geoip2 = 40,
-  sym_block_geoip2_entries = 41,
-  sym_geoip2_entry = 42,
-  sym__geoip2_entry_setting = 43,
-  sym__geoip2_entry_var = 44,
-  sym_string = 45,
-  sym_comment = 46,
-  sym_value_boolean = 47,
-  aux_sym_source_file_repeat1 = 48,
-  aux_sym__directive_args_repeat1 = 49,
-  aux_sym__block_map_repeat1 = 50,
-  aux_sym__block_lua_repeat1 = 51,
-  aux_sym_block_geoip2_entries_repeat1 = 52,
-  aux_sym__geoip2_entry_var_repeat1 = 53,
-  alias_sym_lua_code = 54,
-  alias_sym_map_key = 55,
-  alias_sym_map_value = 56,
+  sym_source_file = 23,
+  sym__directive = 24,
+  sym_directive_simple = 25,
+  sym_directive_block = 26,
+  sym__block_directive = 27,
+  sym__directive_args = 28,
+  sym_directive_arg = 29,
+  sym_directive_map = 30,
+  sym__block_map = 31,
+  sym_map_entry = 32,
+  sym_map_option = 33,
+  sym_directive_block_lua = 34,
+  sym__block_lua = 35,
+  sym__block_lua_content = 36,
+  sym_directive_geoip2 = 37,
+  sym_block_geoip2_entries = 38,
+  sym_geoip2_entry = 39,
+  sym__geoip2_entry_setting = 40,
+  sym__geoip2_entry_var = 41,
+  sym_string = 42,
+  sym_comment = 43,
+  sym_value_boolean = 44,
+  aux_sym_source_file_repeat1 = 45,
+  aux_sym__directive_args_repeat1 = 46,
+  aux_sym__block_map_repeat1 = 47,
+  aux_sym__block_lua_repeat1 = 48,
+  aux_sym_block_geoip2_entries_repeat1 = 49,
+  aux_sym__geoip2_entry_var_repeat1 = 50,
+  alias_sym_lua_code = 51,
+  alias_sym_map_key = 52,
+  alias_sym_map_value = 53,
 };
 
 static const char * const ts_symbol_names[] = {
@@ -102,9 +99,6 @@ static const char * const ts_symbol_names[] = {
   [anon_sym_off] = "off",
   [sym_value_size] = "value_size",
   [sym_value_time] = "value_time",
-  [sym__newline] = "_newline",
-  [sym__indent] = "_indent",
-  [sym__dedent] = "_dedent",
   [sym_source_file] = "source_file",
   [sym__directive] = "_directive",
   [sym_directive_simple] = "directive_simple",
@@ -162,9 +156,6 @@ static const TSSymbol ts_symbol_map[] = {
   [anon_sym_off] = anon_sym_off,
   [sym_value_size] = sym_value_size,
   [sym_value_time] = sym_value_time,
-  [sym__newline] = sym__newline,
-  [sym__indent] = sym__indent,
-  [sym__dedent] = sym__dedent,
   [sym_source_file] = sym_source_file,
   [sym__directive] = sym__directive,
   [sym_directive_simple] = sym_directive_simple,
@@ -289,18 +280,6 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
   },
   [sym_value_time] = {
     .visible = true,
-    .named = true,
-  },
-  [sym__newline] = {
-    .visible = false,
-    .named = true,
-  },
-  [sym__indent] = {
-    .visible = false,
-    .named = true,
-  },
-  [sym__dedent] = {
-    .visible = false,
     .named = true,
   },
   [sym_source_file] = {
@@ -2143,7 +2122,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
 }
 
 static const TSLexerMode ts_lex_modes[STATE_COUNT] = {
-  [0] = {.lex_state = 0, .external_lex_state = 1},
+  [0] = {.lex_state = 0},
   [1] = {.lex_state = 76},
   [2] = {.lex_state = 1},
   [3] = {.lex_state = 1},
@@ -2279,9 +2258,6 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_off] = ACTIONS(1),
     [sym_value_size] = ACTIONS(1),
     [sym_value_time] = ACTIONS(1),
-    [sym__newline] = ACTIONS(1),
-    [sym__indent] = ACTIONS(1),
-    [sym__dedent] = ACTIONS(1),
   },
   [STATE(1)] = {
     [sym_source_file] = STATE(102),
@@ -4090,35 +4066,9 @@ static const TSParseActionEntry ts_parse_actions[] = {
   [334] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_comment, 1, 0, 0),
 };
 
-enum ts_external_scanner_symbol_identifiers {
-  ts_external_token__newline = 0,
-  ts_external_token__indent = 1,
-  ts_external_token__dedent = 2,
-};
-
-static const TSSymbol ts_external_scanner_symbol_map[EXTERNAL_TOKEN_COUNT] = {
-  [ts_external_token__newline] = sym__newline,
-  [ts_external_token__indent] = sym__indent,
-  [ts_external_token__dedent] = sym__dedent,
-};
-
-static const bool ts_external_scanner_states[2][EXTERNAL_TOKEN_COUNT] = {
-  [1] = {
-    [ts_external_token__newline] = true,
-    [ts_external_token__indent] = true,
-    [ts_external_token__dedent] = true,
-  },
-};
-
 #ifdef __cplusplus
 extern "C" {
 #endif
-void *tree_sitter_nginx_external_scanner_create(void);
-void tree_sitter_nginx_external_scanner_destroy(void *);
-bool tree_sitter_nginx_external_scanner_scan(void *, TSLexer *, const bool *);
-unsigned tree_sitter_nginx_external_scanner_serialize(void *, char *);
-void tree_sitter_nginx_external_scanner_deserialize(void *, const char *, unsigned);
-
 #ifdef TREE_SITTER_HIDE_SYMBOLS
 #define TS_PUBLIC
 #elif defined(_WIN32)
@@ -4151,15 +4101,6 @@ TS_PUBLIC const TSLanguage *tree_sitter_nginx(void) {
     .alias_sequences = &ts_alias_sequences[0][0],
     .lex_modes = (const void*)ts_lex_modes,
     .lex_fn = ts_lex,
-    .external_scanner = {
-      &ts_external_scanner_states[0][0],
-      ts_external_scanner_symbol_map,
-      tree_sitter_nginx_external_scanner_create,
-      tree_sitter_nginx_external_scanner_destroy,
-      tree_sitter_nginx_external_scanner_scan,
-      tree_sitter_nginx_external_scanner_serialize,
-      tree_sitter_nginx_external_scanner_deserialize,
-    },
     .primary_state_ids = ts_primary_state_ids,
     .name = "nginx",
     .max_reserved_word_set_size = 0,

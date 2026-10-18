@@ -1,7 +1,7 @@
 module.exports = grammar({
   name: "nginx",
   extras: ($) => [/\s/, $.comment],
-  externals: ($) => [$._newline, $._indent, $._dedent],
+  externals: ($) => [],
   conflicts: ($) => [],
   rules: {
     // entrypoint (topmost rule)
