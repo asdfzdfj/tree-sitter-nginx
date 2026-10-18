@@ -1,8 +1,3 @@
-const terminator = ";",
-  softTerminator = choice(terminator),
-  unicodeLetter = /\p{L}/,
-  unicodeDigit = /[0-9]/;
-
 module.exports = grammar({
   name: "nginx",
   extras: ($) => [/\s/, $.comment],
