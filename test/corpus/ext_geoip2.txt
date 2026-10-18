@@ -1,0 +1,101 @@
+===
+geoip2 directive
+===
+
+# configuration file /etc/nginx/conf.d/geoip2.conf:
+geoip2 /opt/geoip-mmdb/GeoLite2-City.mmdb {
+	$geoip2_city default=Unknown source=$remote_addr city names en;
+	$geoip2_continent default=AS source=$remote_addr continent code;
+	$geoip2_country_code default=US source=$remote_addr country iso_code;
+	$geoip2_subdivision default=Unknown source=$remote_addr subdivisions 0 names en;
+}
+
+geoip2 /opt/geoip-mmdb/GeoLite2-ASN.mmdb {
+	$geoip2_asn default=0 source=$remote_addr autonomous_system_number;
+	$geoip2_org default="N/A" source=$remote_addr autonomous_system_organization;
+}
+
+---
+
+(source_file
+  (comment)
+  (directive_geoip2
+    (keyword)
+    (string
+      (string_unquote))
+    (block
+      (geoip2_entry
+        (var)
+        (string
+          (string_unquote))
+        (string
+          (string_unquote))
+        (string
+          (string_unquote))
+        (string
+          (string_unquote))
+        (string
+          (string_unquote))
+        (terminator))
+      (geoip2_entry
+        (var)
+        (string
+          (string_unquote))
+        (string
+          (string_unquote))
+        (string
+          (string_unquote))
+        (string
+          (string_unquote))
+        (terminator))
+      (geoip2_entry
+        (var)
+        (string
+          (string_unquote))
+        (string
+          (string_unquote))
+        (string
+          (string_unquote))
+        (string
+          (string_unquote))
+        (terminator))
+      (geoip2_entry
+        (var)
+        (string
+          (string_unquote))
+        (string
+          (string_unquote))
+        (string
+          (string_unquote))
+        (string
+          (string_unquote))
+        (string
+          (string_unquote))
+        (string
+          (string_unquote))
+        (terminator))))
+  (directive_geoip2
+    (keyword)
+    (string
+      (string_unquote))
+    (block
+      (geoip2_entry
+        (var)
+        (string
+          (string_unquote))
+        (string
+          (string_unquote))
+        (string
+          (string_unquote))
+        (terminator))
+      (geoip2_entry
+        (var)
+        (string
+          (string_unquote))
+        (string
+          (string_dquote))
+        (string
+          (string_unquote))
+        (string
+          (string_unquote))
+        (terminator)))))

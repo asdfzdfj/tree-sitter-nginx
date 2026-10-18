@@ -135,7 +135,7 @@ module.exports = grammar({
     _block_lua_content: ($) =>
       choice(
         /[^\{\}]+/,
-        seq("{", $._block_lua_content, "}"),
+        seq("{", repeat($._block_lua_content), "}"),
       ),
 
 

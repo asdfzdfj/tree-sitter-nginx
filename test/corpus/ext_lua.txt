@@ -40,14 +40,13 @@ header_filter_by_lua_block {
 
 (source_file
   (comment)
-  (directive
+  (directive_block_lua
     (keyword)
-    (lua_block
-        (lua_code) )))
-
+    (block
+      (lua_code))))
 
 ==================
-set_by_lua_block (it has args)
+set_by_lua_block: the only lua block directive that has an arg
 ==================
 
 set_by_lua_block $foo {
@@ -57,23 +56,8 @@ set_by_lua_block $foo {
 ---
 
 (source_file
-  (directive
+  (directive_block_lua
     (keyword)
     (var)
-    (lua_block
-      (lua_code) )))
-
-
-==============================
-set_by_lua, lua code as string
-==============================
-
-set_by_lua $foo "return 0";
-
----
-
-(source_file
-  (directive
-    (keyword)
-    (var)
-    (lua_code) ))
+    (block
+      (lua_code))))
