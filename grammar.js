@@ -224,7 +224,7 @@ module.exports = grammar({
     value_size: (_) => token(seq(/\d+/, /[mkgMKG]/)),
     value_time: (_) =>
       token(
-        repeat1(seq(/\d+/, /(ms|s|m|h|d|w|M|y)/))
+        repeat1(token(seq(/\d+/, /(ms|s|m|h|d|w|M|y)/)))
       ),
 
     _mime_type_top: (_) =>

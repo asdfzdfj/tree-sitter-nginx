@@ -811,17 +811,20 @@
       "content": {
         "type": "REPEAT1",
         "content": {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "PATTERN",
-              "value": "\\d+"
-            },
-            {
-              "type": "PATTERN",
-              "value": "(ms|s|m|h|d|w|M|y)"
-            }
-          ]
+          "type": "TOKEN",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "PATTERN",
+                "value": "\\d+"
+              },
+              {
+                "type": "PATTERN",
+                "value": "(ms|s|m|h|d|w|M|y)"
+              }
+            ]
+          }
         }
       }
     },
