@@ -20,6 +20,10 @@
           "named": true
         },
         {
+          "type": "directive_map",
+          "named": true
+        },
+        {
           "type": "directive_simple",
           "named": true
         },
@@ -29,6 +33,14 @@
         },
         {
           "type": "lua_code",
+          "named": true
+        },
+        {
+          "type": "map_entry",
+          "named": true
+        },
+        {
+          "type": "map_option",
           "named": true
         }
       ]
@@ -141,6 +153,33 @@
     }
   },
   {
+    "type": "directive_map",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "block",
+          "named": true
+        },
+        {
+          "type": "keyword",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "var",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "directive_simple",
     "named": true,
     "fields": {},
@@ -200,6 +239,98 @@
     "fields": {}
   },
   {
+    "type": "map_entry",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "map_key",
+          "named": true
+        },
+        {
+          "type": "map_value",
+          "named": true
+        },
+        {
+          "type": "terminator",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "map_key",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "string_dquote",
+          "named": true
+        },
+        {
+          "type": "string_squote",
+          "named": true
+        },
+        {
+          "type": "string_unquote",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "map_option",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "terminator",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "map_value",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "string_dquote",
+          "named": true
+        },
+        {
+          "type": "string_squote",
+          "named": true
+        },
+        {
+          "type": "string_unquote",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "source_file",
     "named": true,
     "root": true,
@@ -218,6 +349,10 @@
         },
         {
           "type": "directive_geoip2",
+          "named": true
+        },
+        {
+          "type": "directive_map",
           "named": true
         },
         {

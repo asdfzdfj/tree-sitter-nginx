@@ -22,6 +22,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "directive_map"
+        },
+        {
+          "type": "SYMBOL",
           "name": "directive_block"
         },
         {
@@ -138,6 +142,178 @@
         {
           "type": "SYMBOL",
           "name": "string"
+        }
+      ]
+    },
+    "directive_map": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "STRING",
+            "value": "map"
+          },
+          "named": true,
+          "value": "keyword"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "string"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "var"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_block_map"
+          },
+          "named": true,
+          "value": "block"
+        }
+      ]
+    },
+    "_block_map": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "{"
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "map_option"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "map_entry"
+              }
+            ]
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "}"
+        }
+      ]
+    },
+    "map_entry": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "string"
+          },
+          "named": true,
+          "value": "map_key"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "string"
+          },
+          "named": true,
+          "value": "map_value"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "terminator"
+        }
+      ]
+    },
+    "map_option": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "STRING",
+                "value": "default"
+              },
+              "named": true,
+              "value": "keyword"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "string"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "terminator"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "STRING",
+                "value": "include"
+              },
+              "named": true,
+              "value": "keyword"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "string"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "terminator"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "STRING",
+                "value": "hostnames"
+              },
+              "named": true,
+              "value": "keyword"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "terminator"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "STRING",
+                "value": "volatile"
+              },
+              "named": true,
+              "value": "keyword"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "terminator"
+            }
+          ]
         }
       ]
     },

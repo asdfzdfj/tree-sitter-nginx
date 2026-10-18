@@ -20,6 +20,7 @@ module.exports = grammar({
         // specialized directives
         $.directive_block_lua,
         $.directive_geoip2,
+        $.directive_map,
         // generic direcives
         $.directive_block,
         $.directive_simple,
@@ -58,6 +59,50 @@ module.exports = grammar({
         $.value_size,
         $.value_time,
         $.string
+      ),
+
+    directive_map: ($) =>
+      seq(
+        alias("map", $.keyword),
+        $.string,
+        $.var,
+        alias($._block_map, $.block)
+      ),
+
+    _block_map: ($) =>
+      seq(
+        "{",
+        repeat1(
+          choice(
+            $.map_option,
+            $.map_entry,
+          ),
+        ),
+        "}",
+      ),
+
+    map_entry: ($) =>
+      seq(
+        // TODO: handle key regex prefix and stuff
+        alias($.string, $.map_key),
+        alias($.string, $.map_value),
+        $.terminator,
+      ),
+
+    map_option: ($) =>
+      choice(
+        seq(
+          alias("default", $.keyword),
+          $.string,
+          $.terminator,
+        ),
+        seq(
+          alias("include", $.keyword),
+          $.string,
+          $.terminator,
+        ),
+        seq(alias("hostnames", $.keyword), $.terminator),
+        seq(alias("volatile", $.keyword), $.terminator)
       ),
 
     string: ($) =>
