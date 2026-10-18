@@ -16,6 +16,7 @@ module.exports = grammar({
         $.directive_block_lua,
         $.directive_geoip2,
         $.directive_map,
+        $.directive_types,
         // generic direcives
         $.directive_block,
         $.directive_simple,
@@ -104,6 +105,29 @@ module.exports = grammar({
         seq(alias("volatile", $.keyword), $.terminator)
       ),
 
+    // types directive
+    directive_types: ($) =>
+      seq(
+        alias("types", $.keyword),
+        alias($._block_types, $.block),
+      ),
+
+    _block_types: ($) =>
+      seq(
+        "{",
+        repeat($.types_entry),
+        "}",
+      ),
+
+    types_entry: ($) =>
+      seq(
+        alias($.mime_type, $.type_mime),
+        repeat1($.type_ext),
+        $.terminator
+      ),
+
+    type_ext: ($) => token(/[a-z0-9]+/),
+
     // lua_block directives, these consume block as if they are string
     // and also add a lua injection site
 
@@ -178,6 +202,9 @@ module.exports = grammar({
         $.string_unquote,
       ),
 
+    mime_type: ($) =>
+      seq($._mime_type_top, "/", $._mime_type_sub),
+
     // terminals (or close to it)
 
     comment: (_) => prec.left(token(seq("#", /.*/))),
@@ -199,5 +226,21 @@ module.exports = grammar({
       token(
         repeat1(seq(/\d+/, /(ms|s|m|h|d|w|M|y)/))
       ),
+
+    _mime_type_top: (_) =>
+      choice(
+        "application",
+        "audio",
+        "example",
+        "font",
+        "haptics",
+        "image",
+        "message",
+        "model",
+        "multipart",
+        "text",
+        "video",
+      ),
+    _mime_type_sub: (_) => token(/[A-Za-z0-9.+-]+/),
   },
 });

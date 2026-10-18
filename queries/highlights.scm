@@ -5,9 +5,11 @@
 (directive_map (keyword) @keyword.conditional)
 
 ; TODO: unify directive types
-(directive_block (keyword) @keyword)
-(directive_simple (keyword) @keyword)
-(directive_block_lua (keyword) @keyword)
+(directive_block (keyword) @function)
+(directive_simple (keyword) @function)
+(directive_block_lua (keyword) @function)
+(directive_geoip2 (keyword) @function)
+(directive_types (keyword) @function)
 
 (value_boolean) @boolean
 

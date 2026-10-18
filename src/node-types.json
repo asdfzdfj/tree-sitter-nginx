@@ -28,6 +28,10 @@
           "named": true
         },
         {
+          "type": "directive_types",
+          "named": true
+        },
+        {
           "type": "geoip2_entry",
           "named": true
         },
@@ -41,6 +45,10 @@
         },
         {
           "type": "map_option",
+          "named": true
+        },
+        {
+          "type": "types_entry",
           "named": true
         }
       ]
@@ -203,6 +211,25 @@
     }
   },
   {
+    "type": "directive_types",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "block",
+          "named": true
+        },
+        {
+          "type": "keyword",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "geoip2_entry",
     "named": true,
     "fields": {},
@@ -358,6 +385,10 @@
         {
           "type": "directive_simple",
           "named": true
+        },
+        {
+          "type": "directive_types",
+          "named": true
         }
       ]
     }
@@ -386,13 +417,81 @@
     }
   },
   {
+    "type": "type_mime",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "types_entry",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "terminator",
+          "named": true
+        },
+        {
+          "type": "type_ext",
+          "named": true
+        },
+        {
+          "type": "type_mime",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "value_boolean",
     "named": true,
     "fields": {}
   },
   {
+    "type": "/",
+    "named": false
+  },
+  {
+    "type": "application",
+    "named": false
+  },
+  {
+    "type": "audio",
+    "named": false
+  },
+  {
+    "type": "example",
+    "named": false
+  },
+  {
+    "type": "font",
+    "named": false
+  },
+  {
+    "type": "haptics",
+    "named": false
+  },
+  {
+    "type": "image",
+    "named": false
+  },
+  {
     "type": "keyword",
     "named": true
+  },
+  {
+    "type": "message",
+    "named": false
+  },
+  {
+    "type": "model",
+    "named": false
+  },
+  {
+    "type": "multipart",
+    "named": false
   },
   {
     "type": "off",
@@ -419,6 +518,14 @@
     "named": true
   },
   {
+    "type": "text",
+    "named": false
+  },
+  {
+    "type": "type_ext",
+    "named": true
+  },
+  {
     "type": "value_size",
     "named": true
   },
@@ -429,6 +536,10 @@
   {
     "type": "var",
     "named": true
+  },
+  {
+    "type": "video",
+    "named": false
   },
   {
     "type": "{",

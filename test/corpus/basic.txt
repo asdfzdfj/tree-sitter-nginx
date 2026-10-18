@@ -160,8 +160,6 @@ map "$geoip2_country_code:$fedi_accept" $fedi_permit {
 
 ===
 [incomplete] types directive
-
-:skip
 ===
 
 types {
@@ -178,7 +176,7 @@ types {
 ---
 
 (source_file
-  (directive_block
+  (directive_types
     (keyword)
     (block
       (types_entry
