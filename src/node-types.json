@@ -1,64 +1,5 @@
 [
   {
-    "type": "attribute",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "auto",
-          "named": true
-        },
-        {
-          "type": "block",
-          "named": true
-        },
-        {
-          "type": "boolean",
-          "named": true
-        },
-        {
-          "type": "connection_method",
-          "named": true
-        },
-        {
-          "type": "keyword",
-          "named": true
-        },
-        {
-          "type": "level",
-          "named": true
-        },
-        {
-          "type": "numeric_literal",
-          "named": true
-        },
-        {
-          "type": "quoted_string_literal",
-          "named": true
-        },
-        {
-          "type": "size",
-          "named": true
-        },
-        {
-          "type": "string_literal",
-          "named": true
-        },
-        {
-          "type": "time",
-          "named": true
-        },
-        {
-          "type": "value",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "block",
     "named": true,
     "fields": {},
@@ -67,46 +8,27 @@
       "required": false,
       "types": [
         {
-          "type": "attribute",
+          "type": "directive_block",
           "named": true
         },
         {
-          "type": "block",
+          "type": "directive_block_lua",
           "named": true
         },
         {
-          "type": "directive",
+          "type": "directive_geoip2",
           "named": true
         },
         {
-          "type": "if",
+          "type": "directive_simple",
           "named": true
         },
         {
-          "type": "location",
+          "type": "geoip2_entry",
           "named": true
         },
         {
-          "type": "map",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "boolean",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "off",
-          "named": true
-        },
-        {
-          "type": "on",
+          "type": "lua_code",
           "named": true
         }
       ]
@@ -119,17 +41,38 @@
     "fields": {}
   },
   {
-    "type": "connection_method",
+    "type": "directive_arg",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "value_boolean",
+          "named": true
+        },
+        {
+          "type": "value_size",
+          "named": true
+        },
+        {
+          "type": "value_time",
+          "named": true
+        },
+        {
+          "type": "var",
+          "named": true
+        }
+      ]
+    }
   },
   {
-    "type": "constant",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "directive",
+    "type": "directive_block",
     "named": true,
     "fields": {},
     "children": {
@@ -137,27 +80,30 @@
       "required": true,
       "types": [
         {
-          "type": "auto",
-          "named": true
-        },
-        {
           "type": "block",
           "named": true
         },
         {
-          "type": "boolean",
+          "type": "directive_arg",
           "named": true
         },
         {
-          "type": "constant",
+          "type": "keyword",
           "named": true
-        },
+        }
+      ]
+    }
+  },
+  {
+    "type": "directive_block_lua",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
         {
-          "type": "cpumask",
-          "named": true
-        },
-        {
-          "type": "file",
+          "type": "block",
           "named": true
         },
         {
@@ -165,91 +111,14 @@
           "named": true
         },
         {
-          "type": "level",
-          "named": true
-        },
-        {
-          "type": "lua_block",
-          "named": true
-        },
-        {
-          "type": "lua_code",
-          "named": true
-        },
-        {
-          "type": "mask",
-          "named": true
-        },
-        {
-          "type": "numeric_literal",
-          "named": true
-        },
-        {
-          "type": "size",
-          "named": true
-        },
-        {
-          "type": "time",
-          "named": true
-        },
-        {
-          "type": "value",
-          "named": true
-        },
-        {
           "type": "var",
           "named": true
-        },
-        {
-          "type": "variable",
-          "named": true
         }
       ]
     }
   },
   {
-    "type": "file",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "if",
-    "named": true,
-    "fields": {
-      "condition": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "condition",
-            "named": true
-          }
-        ]
-      }
-    },
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "block",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "keyword",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "level",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "location",
+    "type": "directive_geoip2",
     "named": true,
     "fields": {},
     "children": {
@@ -261,31 +130,65 @@
           "named": true
         },
         {
-          "type": "location_modifier",
+          "type": "keyword",
           "named": true
         },
         {
-          "type": "location_route",
+          "type": "string",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "location_modifier",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "lua_block",
+    "type": "directive_simple",
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
-          "type": "lua_code",
+          "type": "directive_arg",
+          "named": true
+        },
+        {
+          "type": "keyword",
+          "named": true
+        },
+        {
+          "type": "terminator",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "geoip2_entry",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "keyword",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "terminator",
+          "named": true
+        },
+        {
+          "type": "value_time",
+          "named": true
+        },
+        {
+          "type": "var",
           "named": true
         }
       ]
@@ -293,35 +196,6 @@
   },
   {
     "type": "lua_code",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "map",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "block",
-          "named": true
-        },
-        {
-          "type": "var",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "mask",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "quoted_string_literal",
     "named": true,
     "fields": {}
   },
@@ -335,237 +209,86 @@
       "required": false,
       "types": [
         {
-          "type": "attribute",
+          "type": "directive_block",
           "named": true
         },
         {
-          "type": "block",
+          "type": "directive_block_lua",
           "named": true
         },
         {
-          "type": "directive",
+          "type": "directive_geoip2",
           "named": true
         },
         {
-          "type": "if",
-          "named": true
-        },
-        {
-          "type": "location",
-          "named": true
-        },
-        {
-          "type": "map",
+          "type": "directive_simple",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "variable",
+    "type": "string",
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
-      "required": false,
+      "multiple": false,
+      "required": true,
       "types": [
         {
-          "type": "keyword",
+          "type": "string_dquote",
           "named": true
         },
         {
-          "type": "numeric_literal",
+          "type": "string_squote",
+          "named": true
+        },
+        {
+          "type": "string_unquote",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "\"",
-    "named": false
+    "type": "value_boolean",
+    "named": true,
+    "fields": {}
   },
   {
-    "type": "'",
-    "named": false
-  },
-  {
-    "type": "*",
-    "named": false
-  },
-  {
-    "type": "-",
-    "named": false
-  },
-  {
-    "type": ".",
-    "named": false
-  },
-  {
-    "type": "/",
-    "named": false
-  },
-  {
-    "type": "/dev/poll",
-    "named": false
-  },
-  {
-    "type": ";",
-    "named": false
-  },
-  {
-    "type": "=",
-    "named": false
-  },
-  {
-    "type": "^~",
-    "named": false
-  },
-  {
-    "type": "_",
-    "named": false
-  },
-  {
-    "type": "accept_mutex",
-    "named": false
-  },
-  {
-    "type": "accept_mutex_delay",
-    "named": false
-  },
-  {
-    "type": "alert",
-    "named": false
-  },
-  {
-    "type": "auto",
-    "named": true
-  },
-  {
-    "type": "condition",
-    "named": true
-  },
-  {
-    "type": "cpumask",
-    "named": true
-  },
-  {
-    "type": "crit",
-    "named": false
-  },
-  {
-    "type": "daemon",
-    "named": false
-  },
-  {
-    "type": "debug",
-    "named": false
-  },
-  {
-    "type": "emerg",
-    "named": false
-  },
-  {
-    "type": "epoll",
-    "named": false
-  },
-  {
-    "type": "error",
-    "named": false
-  },
-  {
-    "type": "eventport",
-    "named": false
-  },
-  {
-    "type": "if",
-    "named": false
-  },
-  {
-    "type": "info",
-    "named": false
-  },
-  {
-    "type": "kqueue",
-    "named": false
-  },
-  {
-    "type": "load_module",
-    "named": false
-  },
-  {
-    "type": "location",
-    "named": false
-  },
-  {
-    "type": "location_route",
-    "named": true
-  },
-  {
-    "type": "lock_file",
-    "named": false
-  },
-  {
-    "type": "map",
-    "named": false
-  },
-  {
-    "type": "master_process",
-    "named": false
-  },
-  {
-    "type": "multi_accept",
-    "named": false
-  },
-  {
-    "type": "notice",
-    "named": false
-  },
-  {
-    "type": "numeric_literal",
+    "type": "keyword",
     "named": true
   },
   {
     "type": "off",
-    "named": true
+    "named": false
   },
   {
     "type": "on",
+    "named": false
+  },
+  {
+    "type": "string_dquote",
     "named": true
   },
   {
-    "type": "pcre_jit",
-    "named": false
-  },
-  {
-    "type": "pid",
-    "named": false
-  },
-  {
-    "type": "poll",
-    "named": false
-  },
-  {
-    "type": "select",
-    "named": false
-  },
-  {
-    "type": "size",
+    "type": "string_squote",
     "named": true
   },
   {
-    "type": "string_literal",
+    "type": "string_unquote",
     "named": true
   },
   {
-    "type": "time",
+    "type": "terminator",
     "named": true
   },
   {
-    "type": "timer_resolution",
-    "named": false
+    "type": "value_size",
+    "named": true
   },
   {
-    "type": "value",
+    "type": "value_time",
     "named": true
   },
   {
@@ -573,43 +296,11 @@
     "named": true
   },
   {
-    "type": "warn",
-    "named": false
-  },
-  {
-    "type": "worker_aio_requests",
-    "named": false
-  },
-  {
-    "type": "worker_connections",
-    "named": false
-  },
-  {
-    "type": "worker_priority",
-    "named": false
-  },
-  {
-    "type": "worker_rlimit_nofile",
-    "named": false
-  },
-  {
-    "type": "worker_shutdown_timeout",
-    "named": false
-  },
-  {
     "type": "{",
     "named": false
   },
   {
     "type": "}",
-    "named": false
-  },
-  {
-    "type": "~",
-    "named": false
-  },
-  {
-    "type": "~*",
     "named": false
   }
 ]
