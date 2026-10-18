@@ -21,31 +21,33 @@ module.exports = grammar({
         $.directive_simple,
       ),
 
-    // generic simple directive
+    // generic direcives
+
     directive_simple: ($) =>
       seq(
-        $.keyword,
+        // from what I've seen in crossplane the "directive" is quite literally a sequence of nonspace chars
+        // try aliasing them to unquoted string for now
+        alias($.string_unquote, $.keyword),
         optional($._directive_args),
         $.terminator,
       ),
 
-    // generic block directive
     directive_block: ($) =>
       seq(
-        $.keyword,
+        alias($.string_unquote, $.keyword),
         optional($._directive_args),
         alias($._block_directive, $.block),
       ),
 
-    _directive_args: ($) =>
-      prec.left(repeat1($.directive_arg)),
-
     _block_directive: ($) =>
       seq(
         "{",
-        repeat1($._directive),
+        repeat($._directive),
         "}",
       ),
+
+    _directive_args: ($) =>
+      prec.left(repeat1($.directive_arg)),
 
     directive_arg: ($) =>
       choice(
@@ -55,6 +57,8 @@ module.exports = grammar({
         $.value_time,
         $.string
       ),
+
+    // map block
 
     directive_map: ($) =>
       seq(
@@ -100,13 +104,6 @@ module.exports = grammar({
         seq(alias("volatile", $.keyword), $.terminator)
       ),
 
-    string: ($) =>
-      choice(
-        $.string_dquote,
-        $.string_squote,
-        $.string_unquote,
-      ),
-
     // lua_block directives, these consume block as if they are string
     // and also add a lua injection site
 
@@ -133,11 +130,10 @@ module.exports = grammar({
       ),
 
     _block_lua_content: ($) =>
-      choice(
+      seq(
         /[^\{\}]+/,
-        seq("{", repeat($._block_lua_content), "}"),
+        optional(seq("{", repeat($._block_lua_content), "}")),
       ),
-
 
     // geoip2 module from https://github.com/leev/ngx_http_geoip2_module
 
@@ -173,6 +169,13 @@ module.exports = grammar({
         $.var,
         repeat1($.string),
         $.terminator
+      ),
+
+    string: ($) =>
+      choice(
+        $.string_dquote,
+        $.string_squote,
+        $.string_unquote,
       ),
 
     // terminals (or close to it)
