@@ -16,28 +16,42 @@ similar quality to what [chr4/nginx.vim](https://github.com/chr4/nginx.vim) prov
 - <https://github.com/nginxinc/crossplane> probably could be used as base for parser,
   smart enough to recognize lua block directives
 
----
+## features/task list
 
-original README:
+### basic grammars
 
-![example](./docs/example.png)
+- [x] comments
+- [x] generic simple directives
+- [x] generic block directives
+- [ ] regex injection in supported places
+- [ ] location block
+    - [ ] location modifier
+- [ ] if block
+    - [ ] if condition
+- [ ] types block
+- [ ] map block
+    - [x] basic map block
+    - [ ] highlight regex keys
+    - [ ] highlight hostnames glob
+- [ ] strings
+    - [x] double quoted
+    - [x] single quoted
+    - [ ] unquoted
+    - [ ] highlight interpolated variable
+- [x] variables
 
-## Features
-- [x] Comments
-- [x] Directives
-- [x] Location
-    - [ ] Regex injection
-- [x] If
-- [x] Map
-- [x] Types
-    - [x] `boolean`
-    - [x] `number`
-    - [x] `string`
-    - [x] `auto`
-    - [x] `size` (`100k`)
-    - [x] `time` (`500ms`)
-    - [x] `cpumask`
-    - [x] `mask`
-    - [x] `file`
-    - [x] `log_level`
-    - [x] `connection_method`
+### extension grammars
+
+- nginx lua module
+    - [x] `*_by_lua_block` block directive
+    - [x] lua injection site for those block
+- [geoip2 module](https://github.com/leev/ngx_http_geoip2_module)
+    - [x] geoip2 directive
+
+### queries
+
+- [ ] folds
+    - [ ] block fold
+- [ ] highlights (the node names are currently unstable)
+- [ ] injections
+    - [x] lua block content
