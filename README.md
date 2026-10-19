@@ -16,6 +16,17 @@ similar quality to what [chr4/nginx.vim](https://github.com/chr4/nginx.vim) prov
 - <https://github.com/nginxinc/crossplane> probably could be used as base for parser,
   smart enough to recognize lua block directives
 
+## TODO
+
+- fix directive parsing where multiple args are parsed out of a single contiguous word
+  e.g. `123xxxx` parsed into `(value_int) 123 (string_unquote) xxxx`
+  rather than a single `(string_unquote) 123xxxx`,  
+  might have to resort to handling whitespace explicitly
+  like how [kdl][tree-sitter-kdl] or [clojure][tree-sitter-clojure] does
+
+[tree-sitter-kdl]: https://github.com/tree-sitter-grammars/tree-sitter-kdl/blob/e8ff98a113e175b84b92ec2096820517c1e10a66/grammar.js#L48
+[tree-sitter-clojure]: https://github.com/clj-commons/tree-sitter-clojure/blob/e43eff80d17cf34852dcd92ca5e6986d23a7040f/grammar.js#L251
+
 ## features/task list
 
 ### basic grammars
