@@ -1,8 +1,7 @@
 ; see https://github.com/nvim-treesitter/nvim-treesitter/blob/master/CONTRIBUTING.md#highlights
+; later query applies
 
 (comment) @comment @spell
-
-(directive_map (keyword) @keyword.conditional)
 
 ; TODO: unify directive types
 (directive_block (keyword) @function)
@@ -11,15 +10,57 @@
 (directive_geoip2 (keyword) @function)
 (directive_types (keyword) @function)
 
+(directive_map (keyword) @keyword.conditional)
+(directive_if (keyword) @keyword.conditional)
+
+(map_option (keyword) @function)
+
+; highlight just a few important directive as keywords
+(directive_block
+  (keyword) @keyword
+  (#any-of? @keyword "http" "stream" "server" "location" "upstream" "events")
+)
+(directive_simple
+  (keyword) @keyword
+  (#any-of? @keyword "listen" "server_name" "root" "internal")
+)
+(directive_simple
+  (keyword) @keyword.import
+  (#eq? @keyword.import "include")
+)
+
+(directive_simple
+  (keyword) @keyword.return
+  (#any-of? @keyword.return
+    "return" "try_files"
+    "proxy_pass" "fastcgi_pass" "scgi_pass" "uwsgi_pass" "db_pass" "grpc_pass" "memcached_pass" "redis_pass" "tunnel_pass")
+)
+
 (value_boolean) @boolean
-(value_numeric) @number
+[
+  (value_numeric)
+  (value_time)
+  (value_size)
+] @number
 
 [
   (string_dquote)
   (string_squote)
 ] @string
 
+[
+  (if_operator_test)
+  (if_operator_compare)
+] @operator
+
 (var) @variable
+(directive_if (if_condition (var) @variable.parameter))
+(directive_map (var) @variable.parameter)
+(geoip2_entry (var) @variable.member)
+;(string_squote (var) @punctuation.special)
+;(string_dquote (var) @punctuation.special)
+
+(types_entry (type_mime) @property)
 
 (terminator) @punctuation.delimiter
 [

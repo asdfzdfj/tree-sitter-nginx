@@ -41,3 +41,7 @@ indent_size = 8
 [test/corpus/*.txt]
 indent_style = space
 indent_size = 2
+
+[*.scm]
+indent_style = space
+indent_size = 2
