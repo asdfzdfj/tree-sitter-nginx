@@ -26,13 +26,13 @@ similar quality to what [chr4/nginx.vim](https://github.com/chr4/nginx.vim) prov
 - [ ] regex injection in supported places
 - [ ] location block
     - [ ] location modifier
-- [ ] if block
-    - [ ] if condition
-- [ ] types block
+- [x] if block
+    - [x] if condition
+- [x] types block
 - [ ] map block
     - [x] basic map block
     - [ ] highlight regex keys
-    - [ ] highlight hostnames glob
+    - [ ] highlight hostname keys glob
 - [ ] strings
     - [x] double quoted
     - [x] single quoted
