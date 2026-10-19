@@ -29,8 +29,8 @@ worker_rlimit_nofile 32768;
   (directive_simple
     (keyword)
     (directive_arg
-      (string
-        (string_unquote)))
+      (value_numeric
+        (value_int)))
     (terminator))
   (directive_simple
     (keyword)
@@ -41,8 +41,8 @@ worker_rlimit_nofile 32768;
   (directive_simple
     (keyword)
     (directive_arg
-      (string
-        (string_unquote)))
+      (value_numeric
+        (value_int)))
     (terminator)))
 
 ===
@@ -71,18 +71,18 @@ server {
       (directive_simple
         (keyword)
         (directive_arg
-          (string
-            (string_unquote)))
+          (value_numeric
+            (value_int)))
         (terminator))
-          (comment)))
+      (comment)))
   (directive_block
     (keyword)
     (block
       (directive_simple
         (keyword)
         (directive_arg
-          (string
-            (string_unquote)))
+          (value_numeric
+            (value_int)))
         (terminator))
       (directive_block
         (keyword)
@@ -96,7 +96,6 @@ server {
               (string
                 (string_dquote)))
             (terminator)))))))
-
 
 ===
 map directive
@@ -159,7 +158,7 @@ map "$geoip2_country_code:$fedi_accept" $fedi_permit {
         (terminator)))))
 
 ===
-[incomplete] types directive
+types directive
 ===
 
 types {
@@ -215,3 +214,75 @@ types {
         (type_mime)
         (type_ext)
         (terminator)))))
+
+===
+if directive cond var
+===
+
+if ($some_condition) {
+}
+
+---
+
+(source_file
+  (directive_if
+    (keyword)
+    (if_condition
+      (var))
+    (block)))
+
+===
+if directive test operator
+===
+
+if (-f /var/www/some/file.txt) {
+}
+if (!-f /var/www/some/file.txt) {
+}
+
+---
+
+(source_file
+  (directive_if
+    (keyword)
+    (if_condition
+      (if_operator_test)
+      (string
+        (string_unquote)))
+    (block))
+  (directive_if
+    (keyword)
+    (if_condition
+      (if_operator_test)
+      (string
+        (string_unquote)))
+    (block)))
+
+===
+if directive compare operator
+===
+
+if ($http_some_header = "foo") {
+}
+if ($arg_other_arg !~ "some_quoted.rege[x]") {
+}
+
+---
+
+(source_file
+  (directive_if
+    (keyword)
+    (if_condition
+      (var)
+      (if_operator_compare)
+      (string
+        (string_dquote)))
+    (block))
+  (directive_if
+    (keyword)
+    (if_condition
+      (var)
+      (if_operator_compare)
+      (string
+        (string_dquote)))
+    (block)))

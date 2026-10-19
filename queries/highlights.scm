@@ -12,6 +12,7 @@
 (directive_types (keyword) @function)
 
 (value_boolean) @boolean
+(value_numeric) @number
 
 [
   (string_dquote)

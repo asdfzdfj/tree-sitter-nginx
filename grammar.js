@@ -12,17 +12,18 @@ module.exports = grammar({
 
     _directive: ($) =>
       choice(
-        // specialized directives
+        // specialized
         $.directive_block_lua,
         $.directive_geoip2,
         $.directive_map,
+        $.directive_if,
         $.directive_types,
-        // generic direcives
+        // generic fallback
         $.directive_block,
         $.directive_simple,
       ),
 
-    // generic direcives
+    // generic directives
 
     directive_simple: ($) =>
       seq(
@@ -56,6 +57,7 @@ module.exports = grammar({
         $.value_boolean,
         $.value_size,
         $.value_time,
+        $.value_numeric,
         $.string
       ),
 
@@ -127,6 +129,51 @@ module.exports = grammar({
       ),
 
     type_ext: ($) => token(/[a-z0-9]+/),
+
+    // if directive
+
+    directive_if: ($) =>
+      seq(
+        alias("if", $.keyword),
+        $.if_condition,
+        alias($._block_directive, $.block),
+      ),
+
+    if_condition: ($) =>
+      seq(
+        "(",
+        choice(
+          $.var,
+          $._if_test,
+          $._if_compare,
+        ),
+        ")"
+      ),
+
+    _if_test: ($) =>
+      seq(
+        $.if_operator_test,
+        alias($.if_string, $.string),
+      ),
+
+    _if_compare: ($) =>
+      seq(
+        $.var,
+        $.if_operator_compare,
+        alias($.if_string, $.string),
+      ),
+
+    if_string: ($) =>
+      choice(
+        $.string_dquote,
+        $.string_squote,
+        alias($.if_string_unquote, $.string_unquote)
+      ),
+
+    // kind of a bodge: make unquoted string in if not accept parenthesis
+    if_string_unquote: (_) => token(/[^'"\s(){};]+/),
+
+    // extension directives
 
     // lua_block directives, these consume block as if they are string
     // and also add a lua injection site
@@ -205,6 +252,12 @@ module.exports = grammar({
     mime_type: ($) =>
       seq($._mime_type_top, "/", $._mime_type_sub),
 
+    value_numeric: ($) =>
+      choice(
+        $.value_int,
+        $.value_float,
+      ),
+
     // terminals (or close to it)
 
     comment: (_) => prec.left(token(seq("#", /.*/))),
@@ -217,7 +270,7 @@ module.exports = grammar({
 
     string_dquote: (_) => token(seq('"', repeat(/[^"]|(\\\")/), '"')),
     string_squote: (_) => token(seq("'", repeat(/[^']|(\\\')/), "'")),
-    string_unquote: (_) => token(/[^'"\s\{;]+/),
+    string_unquote: (_) => token(prec(-1, /[^'"\s\{\};]+/)),
 
     value_boolean: (_) => choice("on", "off"),
     // https://nginx.org/en/docs/syntax.html
@@ -226,6 +279,8 @@ module.exports = grammar({
       token(
         repeat1(token(seq(/\d+/, /(ms|s|m|h|d|w|M|y)/)))
       ),
+    value_int: (_) => token(/[+-]?\d+/),
+    value_float: (_) => token(/[+-]?[\d.]+/),
 
     _mime_type_top: (_) =>
       choice(
@@ -242,5 +297,20 @@ module.exports = grammar({
         "video",
       ),
     _mime_type_sub: (_) => token(/[A-Za-z0-9.+-]+/),
+
+    if_operator_test: (_) =>
+      choice(
+        "-f", "!-f",
+        "-d", "!-d",
+        "-e", "!-e",
+        "-x", "!-x",
+      ),
+
+    if_operator_compare: (_) =>
+      choice(
+        "=", "!=",
+        "~", "!~",
+        "~*", "!~*"
+      ),
   },
 });
