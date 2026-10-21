@@ -51,7 +51,6 @@ module.exports = grammar({
         $.value_boolean,
         $.value_size,
         $.value_time,
-        $.value_numeric,
         $.string
       ),
 
@@ -262,17 +261,10 @@ module.exports = grammar({
 
     value_boolean: (_) => choice("on", "off"),
     // https://nginx.org/en/docs/syntax.html
-    value_size: (_) => token(seq(/\d+/, /[mkgMKG]/)),
+    value_size: (_) => token.immediate(seq(/\d+/, /[mkgMKG]/)),
     value_time: (_) =>
-      token(
-        repeat1(token.immediate(seq(/\d+/, /(ms|s|m|h|d|w|M|y)/)))
-      ),
-    value_numeric: (_) =>
-      token(
-        seq(
-          /[+-]?\d+/,
-          optional(seq(".", /\d+/)),
-        )
+      token.immediate(
+        repeat1(token(seq(/\d+/, /(ms|s|m|h|d|w|M|y)/)))
       ),
 
     _mime_type_top: (_) =>

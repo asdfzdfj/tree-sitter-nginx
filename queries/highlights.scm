@@ -5,7 +5,6 @@
 
 ; TODO: unify directive types
 (directive_generic (keyword) @function)
-(directive_generic (keyword) @function)
 (directive_block_lua (keyword) @function)
 (directive_geoip2 (keyword) @function)
 (directive_types (keyword) @function)
@@ -38,10 +37,14 @@
 
 (value_boolean) @boolean
 [
-  (value_numeric)
   (value_time)
   (value_size)
 ] @number
+; ugly bodge
+(string
+  (string_unquote) @number
+  (#match? @number "^[+-]?[0-9]+(\.[0-9]*)?$")
+)
 
 [
   (string_dquote)

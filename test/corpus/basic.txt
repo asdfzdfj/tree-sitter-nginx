@@ -29,7 +29,8 @@ worker_rlimit_nofile 32768;
   (directive_generic
     (keyword)
     (directive_arg
-      (value_numeric))
+      (string
+        (string_unquote)))
     (terminator))
   (directive_generic
     (keyword)
@@ -40,7 +41,8 @@ worker_rlimit_nofile 32768;
   (directive_generic
     (keyword)
     (directive_arg
-      (value_numeric))
+      (string
+        (string_unquote)))
     (terminator)))
 
 ===
@@ -69,7 +71,8 @@ server {
       (directive_generic
         (keyword)
         (directive_arg
-          (value_numeric))
+          (string
+            (string_unquote)))
         (terminator))
       (comment)))
   (directive_generic
@@ -78,7 +81,8 @@ server {
       (directive_generic
         (keyword)
         (directive_arg
-          (value_numeric))
+          (string
+            (string_unquote)))
         (terminator))
       (directive_generic
         (keyword)

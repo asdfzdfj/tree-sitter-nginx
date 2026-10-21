@@ -77,10 +77,6 @@
           "named": true
         },
         {
-          "type": "value_numeric",
-          "named": true
-        },
-        {
           "type": "value_size",
           "named": true
         },
@@ -624,10 +620,6 @@
   },
   {
     "type": "type_ext",
-    "named": true
-  },
-  {
-    "type": "value_numeric",
     "named": true
   },
   {
