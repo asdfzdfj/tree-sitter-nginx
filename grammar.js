@@ -1,3 +1,5 @@
+const re_ident = /[a-zA-Z]\w*/;
+
 module.exports = grammar({
   name: "nginx",
   extras: ($) => [/\s/, $.comment],
@@ -43,14 +45,18 @@ module.exports = grammar({
       ),
 
     _directive_args: ($) =>
-      prec.left(repeat1($.directive_arg)),
+      seq(
+        repeat(seq($.directive_arg, /\s/)),
+        $.directive_arg,
+        optional(/\s/),
+      ),
 
     directive_arg: ($) =>
       choice(
         $.value_boolean,
         $.value_size,
         $.value_time,
-        $.string
+        $.string,
       ),
 
     // map block
@@ -248,8 +254,15 @@ module.exports = grammar({
     terminator: (_) => ";",
 
     keyword: (_) => token(/\w+/),
-    var: (_) => token(seq("$", /\w+/)),
-    ident: (_) => token(/[a-zA-Z]\w*/),
+    ident: (_) => token(re_ident),
+
+    var: (_) =>
+      token(
+        choice(
+          seq("$", re_ident),
+          seq("${", re_ident, "}"),
+        )
+      ),
 
     string_dquote: (_) => token(seq('"', repeat(/[^"]|(\\\")/), '"')),
     string_squote: (_) => token(seq("'", repeat(/[^']|(\\\')/), "'")),

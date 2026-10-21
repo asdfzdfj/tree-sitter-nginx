@@ -103,15 +103,41 @@
       ]
     },
     "_directive_args": {
-      "type": "PREC_LEFT",
-      "value": 0,
-      "content": {
-        "type": "REPEAT1",
-        "content": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "directive_arg"
+              },
+              {
+                "type": "PATTERN",
+                "value": "\\s"
+              }
+            ]
+          }
+        },
+        {
           "type": "SYMBOL",
           "name": "directive_arg"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "PATTERN",
+              "value": "\\s"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
-      }
+      ]
     },
     "directive_arg": {
       "type": "CHOICE",
@@ -789,27 +815,49 @@
         "value": "\\w+"
       }
     },
-    "var": {
-      "type": "TOKEN",
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "STRING",
-            "value": "$"
-          },
-          {
-            "type": "PATTERN",
-            "value": "\\w+"
-          }
-        ]
-      }
-    },
     "ident": {
       "type": "TOKEN",
       "content": {
         "type": "PATTERN",
         "value": "[a-zA-Z]\\w*"
+      }
+    },
+    "var": {
+      "type": "TOKEN",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "$"
+              },
+              {
+                "type": "PATTERN",
+                "value": "[a-zA-Z]\\w*"
+              }
+            ]
+          },
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "${"
+              },
+              {
+                "type": "PATTERN",
+                "value": "[a-zA-Z]\\w*"
+              },
+              {
+                "type": "STRING",
+                "value": "}"
+              }
+            ]
+          }
+        ]
       }
     },
     "string_dquote": {
