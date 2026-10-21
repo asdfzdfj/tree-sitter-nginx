@@ -47,7 +47,6 @@ module.exports = grammar({
 
     directive_arg: ($) =>
       choice(
-        $.var,
         $.value_boolean,
         $.value_size,
         $.value_time,
@@ -242,9 +241,6 @@ module.exports = grammar({
         $.string_unquote,
       ),
 
-    mime_type: ($) =>
-      seq($._mime_type_top, "/", $._mime_type_sub),
-
     // terminals (or close to it)
 
     comment: (_) => prec.left(token(seq("#", /.*/))),
@@ -261,18 +257,21 @@ module.exports = grammar({
 
     value_boolean: (_) => choice("on", "off"),
     // https://nginx.org/en/docs/syntax.html
-    value_size: (_) => token.immediate(seq(/\d+/, /[mkgMKG]/)),
+    value_size: (_) => token(seq(/\d+/, /[mkgMKG]/)),
     value_time: (_) =>
       token.immediate(
         repeat1(token(seq(/\d+/, /(ms|s|m|h|d|w|M|y)/)))
       ),
 
-    _mime_type_top: (_) =>
-      choice(
-        "application", "audio", "example", "font", "haptics", "image",
-        "message", "model", "multipart", "text", "video",
+    mime_type: (_) =>
+      seq(
+        choice(
+          "application", "audio", "example", "font", "haptics", "image",
+          "message", "model", "multipart", "text", "video",
+        ),
+        token.immediate("/"),
+        token.immediate(/[A-Za-z0-9.+-]+/),
       ),
-    _mime_type_sub: (_) => token(/[A-Za-z0-9.+-]+/),
 
     if_operator_test: (_) =>
       choice(

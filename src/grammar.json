@@ -118,10 +118,6 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "var"
-        },
-        {
-          "type": "SYMBOL",
           "name": "value_boolean"
         },
         {
@@ -751,23 +747,6 @@
         }
       ]
     },
-    "mime_type": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_mime_type_top"
-        },
-        {
-          "type": "STRING",
-          "value": "/"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_mime_type_sub"
-        }
-      ]
-    },
     "comment": {
       "type": "PREC_LEFT",
       "value": 0,
@@ -904,7 +883,7 @@
       ]
     },
     "value_size": {
-      "type": "IMMEDIATE_TOKEN",
+      "type": "TOKEN",
       "content": {
         "type": "SEQ",
         "members": [
@@ -941,61 +920,73 @@
         }
       }
     },
-    "_mime_type_top": {
-      "type": "CHOICE",
+    "mime_type": {
+      "type": "SEQ",
       "members": [
         {
-          "type": "STRING",
-          "value": "application"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "application"
+            },
+            {
+              "type": "STRING",
+              "value": "audio"
+            },
+            {
+              "type": "STRING",
+              "value": "example"
+            },
+            {
+              "type": "STRING",
+              "value": "font"
+            },
+            {
+              "type": "STRING",
+              "value": "haptics"
+            },
+            {
+              "type": "STRING",
+              "value": "image"
+            },
+            {
+              "type": "STRING",
+              "value": "message"
+            },
+            {
+              "type": "STRING",
+              "value": "model"
+            },
+            {
+              "type": "STRING",
+              "value": "multipart"
+            },
+            {
+              "type": "STRING",
+              "value": "text"
+            },
+            {
+              "type": "STRING",
+              "value": "video"
+            }
+          ]
         },
         {
-          "type": "STRING",
-          "value": "audio"
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": "/"
+          }
         },
         {
-          "type": "STRING",
-          "value": "example"
-        },
-        {
-          "type": "STRING",
-          "value": "font"
-        },
-        {
-          "type": "STRING",
-          "value": "haptics"
-        },
-        {
-          "type": "STRING",
-          "value": "image"
-        },
-        {
-          "type": "STRING",
-          "value": "message"
-        },
-        {
-          "type": "STRING",
-          "value": "model"
-        },
-        {
-          "type": "STRING",
-          "value": "multipart"
-        },
-        {
-          "type": "STRING",
-          "value": "text"
-        },
-        {
-          "type": "STRING",
-          "value": "video"
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "PATTERN",
+            "value": "[A-Za-z0-9.+-]+"
+          }
         }
       ]
-    },
-    "_mime_type_sub": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PATTERN",
-        "value": "[A-Za-z0-9.+-]+"
-      }
     },
     "if_operator_test": {
       "type": "CHOICE",

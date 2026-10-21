@@ -83,10 +83,6 @@
         {
           "type": "value_time",
           "named": true
-        },
-        {
-          "type": "var",
-          "named": true
         }
       ]
     }
