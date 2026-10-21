@@ -14,35 +14,33 @@ worker_rlimit_nofile 32768;
 
 (source_file
   (comment)
-  (directive_simple
+  (directive_generic
     (keyword)
     (directive_arg
       (string
         (string_unquote)))
     (terminator))
-  (directive_simple
+  (directive_generic
     (keyword)
     (directive_arg
       (string
         (string_unquote)))
     (terminator))
-  (directive_simple
+  (directive_generic
     (keyword)
     (directive_arg
-      (value_numeric
-        (value_int)))
+      (value_numeric))
     (terminator))
-  (directive_simple
+  (directive_generic
     (keyword)
     (directive_arg
       (string
         (string_unquote)))
     (terminator))
-  (directive_simple
+  (directive_generic
     (keyword)
     (directive_arg
-      (value_numeric
-        (value_int)))
+      (value_numeric))
     (terminator)))
 
 ===
@@ -65,32 +63,30 @@ server {
 ---
 
 (source_file
-  (directive_block
+  (directive_generic
     (keyword)
     (block
-      (directive_simple
+      (directive_generic
         (keyword)
         (directive_arg
-          (value_numeric
-            (value_int)))
+          (value_numeric))
         (terminator))
       (comment)))
-  (directive_block
+  (directive_generic
     (keyword)
     (block
-      (directive_simple
+      (directive_generic
         (keyword)
         (directive_arg
-          (value_numeric
-            (value_int)))
+          (value_numeric))
         (terminator))
-      (directive_block
+      (directive_generic
         (keyword)
         (directive_arg
           (string
             (string_unquote)))
         (block
-          (directive_simple
+          (directive_generic
             (keyword)
             (directive_arg
               (string

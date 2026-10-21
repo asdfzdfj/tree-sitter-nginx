@@ -19,26 +19,20 @@ module.exports = grammar({
         $.directive_if,
         $.directive_types,
         // generic fallback
-        $.directive_block,
-        $.directive_simple,
+        $.directive_generic,
       ),
 
-    // generic directives
-
-    directive_simple: ($) =>
+    directive_generic: ($) =>
       seq(
-        // from what I've seen in crossplane the "directive" is quite literally a sequence of nonspace chars
+        // from what I've seen in crossplane, the "directive" is quite
+        // literally just a sequence of nonspace chars;
         // try aliasing them to unquoted string for now
         alias($.string_unquote, $.keyword),
         optional($._directive_args),
-        $.terminator,
-      ),
-
-    directive_block: ($) =>
-      seq(
-        alias($.string_unquote, $.keyword),
-        optional($._directive_args),
-        alias($._block_directive, $.block),
+        choice(
+          alias($._block_directive, $.block),
+          $.terminator,
+        ),
       ),
 
     _block_directive: ($) =>
@@ -170,7 +164,7 @@ module.exports = grammar({
         alias($.if_string_unquote, $.string_unquote)
       ),
 
-    // kind of a bodge: make unquoted string in if not accept parenthesis
+    // kind of a bodge: make unquoted string in if condition not accept parenthesis
     if_string_unquote: (_) => token(prec(-1, /[^\s(){};]+/)),
 
     // extension directives
@@ -252,12 +246,6 @@ module.exports = grammar({
     mime_type: ($) =>
       seq($._mime_type_top, "/", $._mime_type_sub),
 
-    value_numeric: ($) =>
-      choice(
-        $.value_int,
-        $.value_float,
-      ),
-
     // terminals (or close to it)
 
     comment: (_) => prec.left(token(seq("#", /.*/))),
@@ -277,24 +265,20 @@ module.exports = grammar({
     value_size: (_) => token(seq(/\d+/, /[mkgMKG]/)),
     value_time: (_) =>
       token(
-        repeat1(token(seq(/\d+/, /(ms|s|m|h|d|w|M|y)/)))
+        repeat1(token.immediate(seq(/\d+/, /(ms|s|m|h|d|w|M|y)/)))
       ),
-    value_int: (_) => token(/[+-]?\d+/),
-    value_float: (_) => token(/[+-]?[\d.]+/),
+    value_numeric: (_) =>
+      token(
+        seq(
+          /[+-]?\d+/,
+          optional(seq(".", /\d+/)),
+        )
+      ),
 
     _mime_type_top: (_) =>
       choice(
-        "application",
-        "audio",
-        "example",
-        "font",
-        "haptics",
-        "image",
-        "message",
-        "model",
-        "multipart",
-        "text",
-        "video",
+        "application", "audio", "example", "font", "haptics", "image",
+        "message", "model", "multipart", "text", "video",
       ),
     _mime_type_sub: (_) => token(/[A-Za-z0-9.+-]+/),
 

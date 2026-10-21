@@ -4,8 +4,8 @@
 (comment) @comment @spell
 
 ; TODO: unify directive types
-(directive_block (keyword) @function)
-(directive_simple (keyword) @function)
+(directive_generic (keyword) @function)
+(directive_generic (keyword) @function)
 (directive_block_lua (keyword) @function)
 (directive_geoip2 (keyword) @function)
 (directive_types (keyword) @function)
@@ -16,20 +16,20 @@
 (map_option (keyword) @function)
 
 ; highlight just a few important directive as keywords
-(directive_block
+(directive_generic
   (keyword) @keyword
   (#any-of? @keyword "http" "stream" "server" "location" "upstream" "events")
 )
-(directive_simple
+(directive_generic
   (keyword) @keyword
   (#any-of? @keyword "listen" "server_name" "root" "internal")
 )
-(directive_simple
+(directive_generic
   (keyword) @keyword.import
   (#eq? @keyword.import "include")
 )
 
-(directive_simple
+(directive_generic
   (keyword) @keyword.return
   (#any-of? @keyword.return
     "return" "try_files"
