@@ -171,7 +171,7 @@ module.exports = grammar({
       ),
 
     // kind of a bodge: make unquoted string in if not accept parenthesis
-    if_string_unquote: (_) => token(/[^'"\s(){};]+/),
+    if_string_unquote: (_) => token(prec(-1, /[^\s(){};]+/)),
 
     // extension directives
 
@@ -270,7 +270,7 @@ module.exports = grammar({
 
     string_dquote: (_) => token(seq('"', repeat(/[^"]|(\\\")/), '"')),
     string_squote: (_) => token(seq("'", repeat(/[^']|(\\\')/), "'")),
-    string_unquote: (_) => token(prec(-1, /[^'"\s\{\};]+/)),
+    string_unquote: (_) => token(prec(-1, /[^\s\{\};]+/)),
 
     value_boolean: (_) => choice("on", "off"),
     // https://nginx.org/en/docs/syntax.html

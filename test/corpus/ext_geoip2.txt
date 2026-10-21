@@ -93,8 +93,6 @@ geoip2 /opt/geoip-mmdb/GeoLite2-ASN.mmdb {
         (string
           (string_unquote))
         (string
-          (string_dquote))
-        (string
           (string_unquote))
         (string
           (string_unquote))
