@@ -50,6 +50,7 @@
   (string_dquote)
   (string_squote)
 ] @string
+(string_escape) @string.escape
 
 [
   (if_operator_test)
@@ -60,8 +61,6 @@
 (directive_if (if_condition (var) @variable.parameter))
 (directive_map (var) @variable.parameter)
 (geoip2_entry (var) @variable.member)
-;(string_squote (var) @punctuation.special)
-;(string_dquote (var) @punctuation.special)
 
 (types_entry (type_mime) @property)
 

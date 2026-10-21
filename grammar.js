@@ -1,5 +1,3 @@
-const re_ident = /[a-zA-Z]\w*/;
-
 module.exports = grammar({
   name: "nginx",
   extras: ($) => [/\s/, $.comment],
@@ -242,9 +240,34 @@ module.exports = grammar({
 
     string: ($) =>
       choice(
-        $.string_dquote,
-        $.string_squote,
+        alias($.string_var_dquote, $.string_dquote),
+        alias($.string_var_squote, $.string_squote),
         $.string_unquote,
+      ),
+
+    string_var_dquote: ($) =>
+      seq(
+        '"',
+        repeat(
+          choice(
+            prec.left(repeat1(/[^\\"$]/)),
+            alias(/\\./, $.string_escape),
+            $.var,
+          )
+        ),
+        '"'
+      ),
+    string_var_squote: ($) =>
+      seq(
+        "'",
+        repeat(
+          choice(
+            prec.left(repeat1(/[^\\'$]/)),
+            alias(/\\./, $.string_escape),
+            $.var,
+          )
+        ),
+        "'"
       ),
 
     // terminals (or close to it)
@@ -254,13 +277,14 @@ module.exports = grammar({
     terminator: (_) => ";",
 
     keyword: (_) => token(/\w+/),
-    ident: (_) => token(re_ident),
+    ident: (_) => token(/[a-zA-Z]\w*/),
 
     var: (_) =>
-      token(
+      token (
         choice(
-          seq("$", re_ident),
-          seq("${", re_ident, "}"),
+          // not limiting to ident because $1, $2, $3 is valid in context of regex captures
+          seq("$", /\w+/),
+          seq("${", /\w+/, "}"),
         )
       ),
 

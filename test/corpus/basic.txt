@@ -119,7 +119,8 @@ map "$geoip2_country_code:$fedi_accept" $fedi_permit {
   (directive_map
     (keyword)
     (string
-      (string_dquote))
+      (string_dquote
+        (var)))
     (var)
     (block
       (map_option
@@ -136,7 +137,9 @@ map "$geoip2_country_code:$fedi_accept" $fedi_permit {
   (directive_map
     (keyword)
     (string
-      (string_dquote))
+      (string_dquote
+        (var)
+        (var)))
     (var)
     (block
       (map_option

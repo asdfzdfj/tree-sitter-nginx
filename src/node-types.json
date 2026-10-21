@@ -454,6 +454,44 @@
     }
   },
   {
+    "type": "string_dquote",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "string_escape",
+          "named": true
+        },
+        {
+          "type": "var",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "string_squote",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "string_escape",
+          "named": true
+        },
+        {
+          "type": "var",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "type_mime",
     "named": true,
     "fields": {}
@@ -512,6 +550,14 @@
   },
   {
     "type": "!~*",
+    "named": false
+  },
+  {
+    "type": "\"",
+    "named": false
+  },
+  {
+    "type": "'",
     "named": false
   },
   {
@@ -595,11 +641,7 @@
     "named": false
   },
   {
-    "type": "string_dquote",
-    "named": true
-  },
-  {
-    "type": "string_squote",
+    "type": "string_escape",
     "named": true
   },
   {
