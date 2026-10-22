@@ -63,14 +63,21 @@ bool tree_sitter_nginx_external_scanner_scan(void *payload, TSLexer *lexer, cons
 
         lexer->mark_end(lexer);
 
-        // tries to seek past what could be a kv key identifier
+        // seek past what seems like a kv key identifier
         int32_t c = lexer->lookahead;
+        int32_t kv_key_len = 0;
         while (
             ('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z') || ('0' <= c && c <= '9')
             || (c == '_')
         ) {
             advance(lexer);
             c = lexer->lookahead;
+            kv_key_len += 1;
+        }
+        // assert future $.kv_key will have some length
+        // (prevents `=404` from being parsed as an erroneous kv)
+        if (kv_key_len < 1) {
+            return false;
         }
 
         // assert equal sign
