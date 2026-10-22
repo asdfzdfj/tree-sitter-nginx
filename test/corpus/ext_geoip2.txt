@@ -26,32 +26,16 @@ geoip2 /opt/geoip-mmdb/GeoLite2-ASN.mmdb {
     (block
       (geoip2_entry
         (var)
-        (string
-          (string_unquote))
-        (string
-          (string_unquote))
-        (string
-          (string_unquote))
-        (string
-          (string_unquote))
-        (string
-          (string_unquote))
-        (terminator))
-      (geoip2_entry
-        (var)
-        (string
-          (string_unquote))
-        (string
-          (string_unquote))
-        (string
-          (string_unquote))
-        (string
-          (string_unquote))
-        (terminator))
-      (geoip2_entry
-        (var)
-        (string
-          (string_unquote))
+        (kv
+          (kv_key)
+          (kv_value
+            (string
+              (string_unquote))))
+        (kv
+          (kv_key)
+          (kv_value
+            (string
+              (string_unquote))))
         (string
           (string_unquote))
         (string
@@ -61,10 +45,50 @@ geoip2 /opt/geoip-mmdb/GeoLite2-ASN.mmdb {
         (terminator))
       (geoip2_entry
         (var)
+        (kv
+          (kv_key)
+          (kv_value
+            (string
+              (string_unquote))))
+        (kv
+          (kv_key)
+          (kv_value
+            (string
+              (string_unquote))))
         (string
           (string_unquote))
         (string
           (string_unquote))
+        (terminator))
+      (geoip2_entry
+        (var)
+        (kv
+          (kv_key)
+          (kv_value
+            (string
+              (string_unquote))))
+        (kv
+          (kv_key)
+          (kv_value
+            (string
+              (string_unquote))))
+        (string
+          (string_unquote))
+        (string
+          (string_unquote))
+        (terminator))
+      (geoip2_entry
+        (var)
+        (kv
+          (kv_key)
+          (kv_value
+            (string
+              (string_unquote))))
+        (kv
+          (kv_key)
+          (kv_value
+            (string
+              (string_unquote))))
         (string
           (string_unquote))
         (string
@@ -81,19 +105,31 @@ geoip2 /opt/geoip-mmdb/GeoLite2-ASN.mmdb {
     (block
       (geoip2_entry
         (var)
-        (string
-          (string_unquote))
-        (string
-          (string_unquote))
+        (kv
+          (kv_key)
+          (kv_value
+            (string
+              (string_unquote))))
+        (kv
+          (kv_key)
+          (kv_value
+            (string
+              (string_unquote))))
         (string
           (string_unquote))
         (terminator))
       (geoip2_entry
         (var)
-        (string
-          (string_unquote))
-        (string
-          (string_unquote))
+        (kv
+          (kv_key)
+          (kv_value
+            (string
+              (string_dquote))))
+        (kv
+          (kv_key)
+          (kv_value
+            (string
+              (string_unquote))))
         (string
           (string_unquote))
         (terminator)))))

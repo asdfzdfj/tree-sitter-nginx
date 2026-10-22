@@ -156,6 +156,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "kv"
+        },
+        {
+          "type": "SYMBOL",
           "name": "string"
         }
       ]
@@ -744,6 +748,13 @@
           "name": "var"
         },
         {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "kv"
+          }
+        },
+        {
           "type": "REPEAT1",
           "content": {
             "type": "SYMBOL",
@@ -870,6 +881,59 @@
         {
           "type": "STRING",
           "value": "'"
+        }
+      ]
+    },
+    "kv": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_ext_kv_begin"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "IMMEDIATE_TOKEN",
+            "content": {
+              "type": "PATTERN",
+              "value": "\\w+"
+            }
+          },
+          "named": true,
+          "value": "kv_key"
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "STRING",
+            "value": "="
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "kv_value"
+        }
+      ]
+    },
+    "kv_value": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "value_boolean"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "value_size"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "value_time"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "string"
         }
       ]
     },
@@ -1215,7 +1279,20 @@
   ],
   "conflicts": [],
   "precedences": [],
-  "externals": [],
+  "externals": [
+    {
+      "type": "SYMBOL",
+      "name": "_ext_kv_begin"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_ext_immediate_eq"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "error_sentinel"
+    }
+  ],
   "inline": [],
   "supertypes": [],
   "reserved": {}

@@ -69,3 +69,18 @@
   "{"
   "}"
 ] @punctuation.bracket
+
+(kv (kv_key) @property)
+(kv "=" @punctuation.delimiter)
+
+; special kv key highlight for env directive
+(directive_generic
+  (keyword) @keyword
+  (directive_arg
+    [
+      (kv (kv_key) @constant)
+      (string (string_unquote) @constant)
+    ]
+  )
+  (#eq? @keyword "env")
+)

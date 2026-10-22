@@ -1,7 +1,12 @@
 module.exports = grammar({
   name: "nginx",
   extras: ($) => [/\s/, $.comment],
-  externals: ($) => [],
+  externals: ($) => [
+    $._ext_kv_begin,
+    $._ext_immediate_eq,
+
+    $.error_sentinel,
+  ],
   conflicts: ($) => [],
   rules: {
     // entrypoint (topmost rule)
@@ -54,6 +59,7 @@ module.exports = grammar({
         $.value_boolean,
         $.value_size,
         $.value_time,
+        $.kv,
         $.string,
       ),
 
@@ -234,6 +240,7 @@ module.exports = grammar({
     _geoip2_entry_var: ($) =>
       seq(
         $.var,
+        repeat($.kv),
         repeat1($.string),
         $.terminator
       ),
@@ -268,6 +275,22 @@ module.exports = grammar({
           )
         ),
         "'"
+      ),
+
+    kv: ($) =>
+      seq(
+        $._ext_kv_begin,
+        alias(token.immediate(/\w+/), $.kv_key),
+        token.immediate("="),
+        $.kv_value,
+      ),
+
+    kv_value: ($) =>
+      choice(
+        $.value_boolean,
+        $.value_size,
+        $.value_time,
+        $.string,
       ),
 
     // terminals (or close to it)
